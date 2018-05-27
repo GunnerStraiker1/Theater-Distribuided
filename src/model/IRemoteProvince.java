@@ -1,3 +1,6 @@
+package model;
+
+import model.Province;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
