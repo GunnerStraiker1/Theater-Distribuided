@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/server/DBManager.java</file>
-            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/cliente/userInterface.java</file>
-            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/server/ProvinceRepository.java</file>
-            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/server/ProvinceServer.java</file>
+            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/server/PatitoServer.java</file>
+            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/server/PatitoRepo.java</file>
+            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/cliente/AsientosFrame.java</file>
+            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/cliente/MainCtrl.java</file>
+            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/cliente/AsientosCtrl.java</file>
+            <file>file:/D:/Usuarios/Armando/Escritorio/Theater-Distribuided/src/model/patitoAPI.java</file>
         </group>
     </open-files>
 </project-private>
