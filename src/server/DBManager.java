@@ -1,3 +1,5 @@
+package server;
+
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +40,8 @@ public final class DBManager {
  
     try {
         Class.forName("com.mysql.jdbc.Driver");
-      String strCon = "jdbc:mysql://localhost/province?user=root&password=12345";
+        //jdbc:mysql://localhost:3306/patito?zeroDateTimeBehavior=convertToNull
+      String strCon = "jdbc:mysql://localhost:3306/patito?user=root&password=12345";
       con = DriverManager.getConnection(strCon);
     } catch (SQLException se) {
       System.out.println(se);

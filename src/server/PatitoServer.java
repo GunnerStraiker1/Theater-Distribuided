@@ -1,3 +1,6 @@
+package server;
+
+import server.ProvinceObject;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
  
@@ -5,7 +8,7 @@ import java.rmi.registry.Registry;
  * Server
  * 
  */
-public class ProvinceServer {
+public class PatitoServer {
  
   public static void main(String[] args) {
     try {
@@ -13,11 +16,11 @@ public class ProvinceServer {
       Registry registry = LocateRegistry.createRegistry(1099);
  
       //Instantiate server object
-      ProvinceObject po = new ProvinceObject();
+      AsientoObject po = new AsientoObject();
  
       //Register server object
-      registry.rebind("Province", po);
-      System.out.println("ProvinceServer is created!!!");
+      registry.rebind("Patito", po);
+      System.out.println("PatitoServer is created!!!");
     } catch (Exception e) {
       System.out.println(e);
     }

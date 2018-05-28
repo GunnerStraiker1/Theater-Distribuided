@@ -1,3 +1,7 @@
+package server;
+
+import model.IRemoteProvince;
+import model.Province;
 import java.rmi.server.*;
 import java.rmi.*;
 import java.util.ArrayList;
