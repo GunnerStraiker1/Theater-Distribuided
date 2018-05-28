@@ -5,22 +5,9 @@
  */
 package cliente;
 
-//import DAO.DAOAsientos;
-//import Interfaz.AsientosFrame;
-//import Interfaz.VentaFrame;
-//import Modelo.Asiento;
-//import Modelo.Funcion;
-//import Modelo.Obra;
-//import java.awt.Color;
-//import java.awt.event.ActionEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import model.patitoAPI;
@@ -64,8 +51,8 @@ public class MainCtrl implements ActionListener{
                         this.viewLogin.txtName.setText("");
                         this.viewLogin.pwdLog.setText("");
                     }
-                } catch (RemoteException ex) {
-                    System.out.println(ex);
+                } catch (RemoteException | NullPointerException ex ) {
+                    JOptionPane.showMessageDialog(viewLogin, "No hay conexión con la base de datos", "Login Failed",JOptionPane.ERROR_MESSAGE);
                 }
             }
             else{

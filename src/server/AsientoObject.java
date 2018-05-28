@@ -32,7 +32,6 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI{
         try {
       System.out.println("Invoke Comprar Asiento from " + getClientHost());
     } catch (ServerNotActiveException snae) {
-      snae.printStackTrace();
     }
         PatitoRepo.comprar(seat);
     }
@@ -42,7 +41,6 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI{
         try {
       System.out.println("Invoke Select Asiento from " + getClientHost());
     } catch (ServerNotActiveException snae) {
-      snae.printStackTrace();
     }
         PatitoRepo.seleccionar(seat);
     }
@@ -52,7 +50,6 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI{
         try {
       System.out.println("Invoke Diselect Asiento from " + getClientHost());
     } catch (ServerNotActiveException snae) {
-      snae.printStackTrace();
     }
         PatitoRepo.deseleccionar(seat);
     }    
@@ -62,7 +59,6 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI{
         try {
       System.out.println("Invoke Login from " + getClientHost());
     } catch (ServerNotActiveException snae) {
-      snae.printStackTrace();
     }
         return PatitoRepo.login(user);
     }
@@ -72,7 +68,6 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI{
         try {
       System.out.println("Invoke AllAsientos from " + getClientHost());
     } catch (ServerNotActiveException snae) {
-      snae.printStackTrace();
     }
         return PatitoRepo.findSeatsUser(user);
     }

@@ -1,6 +1,6 @@
 package server;
 
-import server.ProvinceObject;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
  
@@ -21,7 +21,7 @@ public class PatitoServer {
       //Register server object
       registry.rebind("Patito", po);
       System.out.println("PatitoServer is created!!!");
-    } catch (Exception e) {
+    } catch (RemoteException e) {
       System.out.println(e);
     }
   }

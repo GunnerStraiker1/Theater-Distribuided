@@ -1,13 +1,8 @@
 package cliente;
 
 
-import model.IRemoteProvince;
-import model.Province;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import java.util.Scanner;
-import model.Usuario;
 import model.patitoAPI;
  
 /**

@@ -5,24 +5,11 @@
  */
 package cliente;
 
-//import DAO.DAOAsientos;
-//import Interfaz.AsientosFrame;
-//import Interfaz.VentaFrame;
-//import Modelo.Asiento;
-//import Modelo.Funcion;
-//import Modelo.Obra;
-//import java.awt.Color;
-//import java.awt.event.ActionEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import model.Usuario;
 import model.patitoAPI;
 //
 ///**
@@ -114,11 +101,10 @@ public class AsientosCtrl implements ActionListener{
         for (int i = 0; i < 100; i++) {
 
             JButton lab = new JButton();
+            lab.setBackground(new java.awt.Color(0,205,0));
             this.view.panel.add(lab);        
 
-            lab.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
+            lab.addActionListener((ActionEvent e) -> {
 //                        if (!lab.getBackground().equals(Color.BLACK)) {
 //                            if (getNoAsientosSelect() < Integer.parseInt(asientosView.noBoletos.getText())) {
 //                            seleccionarAsiento(lab, obra);
@@ -133,7 +119,6 @@ public class AsientosCtrl implements ActionListener{
 //                            setNoAsientosSelect(getNoAsientosSelect() - 1);
 //                        
 //                    }
-                }
             });
             buttons.add(lab);  
             this.view.panel.updateUI();
