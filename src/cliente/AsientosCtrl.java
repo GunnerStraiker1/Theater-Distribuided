@@ -27,7 +27,7 @@ import model.patitoAPI;
  *
  * @author Victor Perera
  */
-public final class AsientosCtrl extends Thread implements ActionListener {
+public final class AsientosCtrl implements ActionListener {
 
     private final AsientosFrame view;
     NetworkManager net;
@@ -39,7 +39,6 @@ public final class AsientosCtrl extends Thread implements ActionListener {
     private final String UPDATE = "ACTUALIZACION";
     private final int user;
     final String HOST = "localhost";
-
 
     public AsientosCtrl(AsientosFrame view, patitoAPI rp, int user) throws IOException {
         this.view = view;
@@ -76,7 +75,7 @@ public final class AsientosCtrl extends Thread implements ActionListener {
                     }
                 }
                 JOptionPane.showMessageDialog(view, "Ha comprado los boletos", "Exito", JOptionPane.INFORMATION_MESSAGE);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(view, "No ha seleccionado boletos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
 
@@ -205,9 +204,4 @@ public final class AsientosCtrl extends Thread implements ActionListener {
         }
     }
 
-    @Override
-    public void run() {
-        System.out.println("Prueba");
-        //crearPanelAsientos();
-    }
 }

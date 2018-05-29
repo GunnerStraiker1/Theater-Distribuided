@@ -68,4 +68,10 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI {
                 return PatitoRepo.findSeatsUser();
     }
 
+    @Override
+    public String notifyMe(String mensaje) throws RemoteException {
+        String returnMessage = "Call back received: " + mensaje;
+        return returnMessage;
+    }
+
 }

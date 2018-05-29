@@ -24,4 +24,6 @@ public interface patitoAPI extends Remote {
     public ArrayList<Usuario> login(Usuario user) throws RemoteException;
 
     public ArrayList<Asiento> asientos() throws RemoteException;
+    
+    public String notifyMe(String mensaje) throws  RemoteException;
 }
