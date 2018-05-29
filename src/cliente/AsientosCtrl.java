@@ -106,11 +106,8 @@ public final class AsientosCtrl extends UnicastRemoteObject implements ActionLis
     }
 
     public void crearPanelAsientos() {
-        try {
-            System.out.println(rp.sayHello());
-        } catch (RemoteException ex) {
-            Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.view.panel.removeAll();
+        this.view.panel.repaint();
         int count = 1;
         char letra = 64;
 
@@ -121,10 +118,12 @@ public final class AsientosCtrl extends UnicastRemoteObject implements ActionLis
                 count = 1;
                 letra++;
                 lab.setName(Character.toString(letra) + count);
+                lab.setText(Character.toString(letra) + count);
 
             } else {
                 count++;
                 lab.setName(Character.toString(letra) + count);
+                lab.setText(Character.toString(letra) + count);
             }
             lab.setBackground(Color.GREEN);
             try {
