@@ -17,12 +17,11 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Asiento;
 import model.patitoAPI;
-//
-///**
-// *
-// * @author Victor Perera
-// */
 
+/**
+ *
+ * @author Victor Perera
+ */
 public class AsientosCtrl implements ActionListener {
 
     private final AsientosFrame view;
@@ -31,8 +30,7 @@ public class AsientosCtrl implements ActionListener {
     private final List<JButton> buttons = new ArrayList<>();
     private final String COMPRADO = "COMPRADO";
     private final String PENDIENTE = "EN ESPERA";
-    private final String SINSELECCION = "SIN SELECCION";
-    private int user;
+    private final int user;
 
     public AsientosCtrl(AsientosFrame view, patitoAPI rp, int user) {
         this.view = view;
@@ -40,29 +38,49 @@ public class AsientosCtrl implements ActionListener {
         this.view.setLocationRelativeTo(null);
         this.view.setVisible(true);
         this.asientosSeleccionados = 0;
-        crearPanelAsientos();
         this.view.buy.addActionListener(this);
+        this.view.jBBack.addActionListener(this);
         this.user = user;
-
+        crearPanelAsientos();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        ArrayList<Asiento> prepare = new ArrayList<>();
         if (e.getSource() == this.view.buy) {
             for (int i = 0; i < buttons.size(); i++) {
                 if (buttons.get(i).getBackground().equals(Color.BLACK)) {
-                    try {
-                        String name = buttons.get(i).getName();
-                        Asiento asientoComprado = new Asiento(name, COMPRADO, this.user);
-                        rp.comprarAsiento(asientoComprado);
-                        JOptionPane.showMessageDialog(view, "Ha comprado los boletos", "Exito", JOptionPane.INFORMATION_MESSAGE);
-                        buttons.get(i).setBackground(Color.GRAY);
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    String name = buttons.get(i).getName();
+                    Asiento asientoComprado = new Asiento(name, COMPRADO, this.user);
+                    prepare.add(asientoComprado);
+                    buttons.get(i).setBackground(Color.GRAY);
+                }
+            }
+            for (int i = 0; i < prepare.size(); i++) {
+                try {
+                    rp.comprarAsiento(prepare.get(i));
+                } catch (RemoteException ex) {
+                    Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            JOptionPane.showMessageDialog(view, "Ha comprado los boletos", "Exito", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        if (e.getSource() == this.view.jBBack) {
+            UserInterface wiew = new UserInterface();
+            this.view.dispose();
+            MainCtrl main = new MainCtrl(wiew, rp);
+            for (int i = 0; i < buttons.size(); i++) {
+                String name = buttons.get(i).getName();
+                Asiento asientoCancelado = new Asiento(name, PENDIENTE, this.user);
+                try {
+                    rp.deseleccionarAsiento(asientoCancelado);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+
     }
 
     private void crearPanelAsientos() {
@@ -85,11 +103,20 @@ public class AsientosCtrl implements ActionListener {
             try {
                 if (!rp.asientos().isEmpty()) {
                     for (int j = 0; j < rp.asientos().size(); j++) {
-                        if (rp.asientos().get(j).getNombre().equals(lab.getName()) && rp.asientos().get(j).getUser() == 1) {
+                        Asiento asientos = rp.asientos().get(j);
+                        if (asientos.getNombre().equals(lab.getName()) && asientos.getUser() == this.user && !asientos.getEstado().equals(PENDIENTE)) {
                             lab.setBackground(Color.GRAY);
                         }
-                        if(rp.asientos().get(j).getNombre().equals(lab.getName()) && rp.asientos().get(j).getUser() != this.user ) {
+                        if (asientos.getNombre().equals(lab.getName()) && asientos.getUser() != this.user) {
                             lab.setBackground(Color.RED);
+                        }
+
+                        if (asientos.getNombre().equals(lab.getName()) && asientos.getUser() != this.user && asientos.getEstado().equals(PENDIENTE)) {
+                            lab.setBackground(Color.BLUE);
+                        }
+
+                        if (asientos.getNombre().equals(lab.getName()) && asientos.getUser() == this.user && asientos.getEstado().equals(PENDIENTE)) {
+                            lab.setBackground(Color.BLACK);
                         }
                     }
                 }
@@ -116,7 +143,18 @@ public class AsientosCtrl implements ActionListener {
                     }
 
                     if (lab.getBackground().equals(Color.GRAY)) {
-                        JOptionPane.showMessageDialog(view, "Asientos seleccionados anteriormente", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
+                        Object options[] = {"Si", "No"};
+                        int selec = JOptionPane.showOptionDialog(lab, "Se ha seleccionado antes, ¿desea canelarlo?", "Seleccion", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[1]);
+                        if (selec == 0) {
+                            try {
+                                String name = lab.getName();
+                                Asiento asientoEliminado = new Asiento(name, PENDIENTE, this.user);
+                                rp.deseleccionarAsiento(asientoEliminado);
+                                lab.setBackground(Color.GREEN);
+                            } catch (RemoteException ex) {
+                                Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                     }
 
                     if (lab.getBackground().equals(Color.BLUE)) {
@@ -150,29 +188,3 @@ public class AsientosCtrl implements ActionListener {
         }
     }
 }
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == this.asientosView.buy) {
-//            try{
-//            if(asientosSelect.size()==Integer.parseInt(this.asientosView.noBoletos.getText())){
-//                daoAsiento.comprarAsientos(funcion, asientosSelect);
-//                JOptionPane.showMessageDialog(asientosView, "Seleccion realizada con éxito");
-//                this.asientosView.dispose();
-//                VentaFrame ventaView = new VentaFrame();
-//                for (int i = 0; i < asientosSelect.size(); i++) {
-//                    asientosSelect.get(i).setClvVenta(asientosSelect.get(0).getNombre()+funcion.getClaveFuncion());
-//                }
-//                VentaCtrl ventaCtrl = new VentaCtrl(ventaView, asientosSelect);
-//            }
-//            else{
-//                throw new Exception("Número de boletos seleccionados incorrecto");
-//            }
-//            }catch(Exception ex){
-//                JOptionPane.showMessageDialog(asientosView, ex.getMessage());
-//                ex.printStackTrace();
-//            }
-//        }
-//    }
-//    
-

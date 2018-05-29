@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Victor Perera
  */
-public class Asiento implements Serializable{
+public class Asiento implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private String nombre;
     private String estado;
@@ -55,5 +56,4 @@ public class Asiento implements Serializable{
         return "Asiento{" + "nombre=" + nombre + ", estado=" + estado + ", user=" + user + '}';
     }
 
-    
 }

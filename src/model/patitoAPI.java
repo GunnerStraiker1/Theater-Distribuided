@@ -13,10 +13,15 @@ import java.util.ArrayList;
  *
  * @author Victor Perera
  */
-public interface patitoAPI extends Remote{
+public interface patitoAPI extends Remote {
+
     public void comprarAsiento(Asiento seat) throws RemoteException;
+
     public void seleccionarAsiento(Asiento seat) throws RemoteException;
+
     public void deseleccionarAsiento(Asiento seat) throws RemoteException;
+
     public ArrayList<Usuario> login(Usuario user) throws RemoteException;
+
     public ArrayList<Asiento> asientos() throws RemoteException;
 }

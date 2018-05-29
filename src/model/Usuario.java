@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Victor Perera
  */
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private int id;
     private String name;
@@ -27,9 +28,7 @@ public class Usuario implements Serializable {
         this.name = name;
         this.password = password;
     }
-    
-    
-    
+
     public String getName() {
         return name;
     }
@@ -58,8 +57,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Usuario{" + "id=" + id + ", name=" + name + ", password=" + password + '}';
     }
-    
-    
-    
-    
+
 }

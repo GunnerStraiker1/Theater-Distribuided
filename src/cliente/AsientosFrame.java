@@ -7,19 +7,18 @@
 package cliente;
 
 import java.awt.Color;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Victor Perera
  */
 public class AsientosFrame extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form PanelPrueba
      */
     public AsientosFrame() {
-       
+
         initComponents();
         panel.setVisible(true);
         jPDisponible.setBackground(Color.GREEN);
@@ -28,6 +27,7 @@ public class AsientosFrame extends javax.swing.JFrame {
         jPMisLugares.setBackground(Color.GRAY);
         jPReservacionActual.setBackground(Color.BLACK);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,10 +39,8 @@ public class AsientosFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         panel = new javax.swing.JPanel();
-        tituloVentana = new javax.swing.JLabel();
         buy = new javax.swing.JButton();
-        noBoletos = new javax.swing.JTextField();
-        startSelection = new javax.swing.JButton();
+        jBBack = new javax.swing.JButton();
         jPOcupados = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPMisLugares = new javax.swing.JPanel();
@@ -59,10 +57,6 @@ public class AsientosFrame extends javax.swing.JFrame {
         panel.setLayout(new java.awt.GridLayout(0, 10));
         jScrollPane1.setViewportView(panel);
 
-        tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tituloVentana.setText("Numero de Asientos a Comprar:");
-        tituloVentana.setToolTipText("");
-
         buy.setText("COMPRAR");
         buy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,16 +64,10 @@ public class AsientosFrame extends javax.swing.JFrame {
             }
         });
 
-        noBoletos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                noBoletosKeyTyped(evt);
-            }
-        });
-
-        startSelection.setText("Seleccionar Asientos");
-        startSelection.addActionListener(new java.awt.event.ActionListener() {
+        jBBack.setText("Regresar");
+        jBBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                startSelectionActionPerformed(evt);
+                jBBackActionPerformed(evt);
             }
         });
 
@@ -153,9 +141,10 @@ public class AsientosFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBBack)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -179,25 +168,15 @@ public class AsientosFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPReservacionActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel5))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(tituloVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(noBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(startSelection)))
+                                .addComponent(jLabel5)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tituloVentana)
-                    .addComponent(noBoletos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(startSelection))
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
+                .addComponent(jBBack)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -229,28 +208,15 @@ public class AsientosFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyActionPerformed
-       
-       
+
+
     }//GEN-LAST:event_buyActionPerformed
 
-    private void noBoletosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_noBoletosKeyTyped
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)|| Character.isMirrored(validar) || Character.getNumericValue(validar)==0) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(rootPane, "Ingresa solo numeros");
-        }
-    }//GEN-LAST:event_noBoletosKeyTyped
-
-    private void startSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSelectionActionPerformed
+    private void jBBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBackActionPerformed
         panel.setVisible(true);
         buy.setVisible(true);
-        startSelection.setVisible(false);
-        noBoletos.setEditable(false);
-        
-        //ca.interfazAsientos(panel, buttons,i,rootPane);
-        /*ca.visualizarAsientosComprados(buttons);*/
-    }//GEN-LAST:event_startSelectionActionPerformed
+        jBBack.setVisible(false);
+    }//GEN-LAST:event_jBBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,15 +253,14 @@ public class AsientosFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AsientosFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AsientosFrame().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton buy;
+    public javax.swing.JButton jBBack;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -307,9 +272,6 @@ public class AsientosFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPReservacionActual;
     private javax.swing.JPanel jPSiendoReservado;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTextField noBoletos;
     public javax.swing.JPanel panel;
-    public javax.swing.JButton startSelection;
-    private javax.swing.JLabel tituloVentana;
     // End of variables declaration//GEN-END:variables
 }
