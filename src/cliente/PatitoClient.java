@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import model.patitoAPI;
+import model.patitoClientAPI;
 import server.AsientoObject;
 
 /**
@@ -21,13 +22,10 @@ public class PatitoClient {
 
             Registry registry = LocateRegistry.getRegistry("127.0.0.1");
 
-            patitoAPI h = (patitoAPI) Naming.lookup("Patito");
-
             patitoAPI rp = (patitoAPI) registry.lookup("Patito");
             System.out.println("Lookup completed ");
             //System.out.println("Server said " + h.sayHello());
-            PatitoClient callbackObj = new AsientoObject();
-            h.registerForCallback(callbackObj);
+            
             System.out.println("Registered for callback.");
                         
             UserInterface wiew = new UserInterface();

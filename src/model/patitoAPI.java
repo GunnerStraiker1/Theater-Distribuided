@@ -30,4 +30,6 @@ public interface patitoAPI extends Remote {
     public void registerForCallback( patitoClientAPI callbackClientObject   ) throws java.rmi.RemoteException; 
     
     public void unregisterForCallback( patitoClientAPI callbackClientObject   ) throws java.rmi.RemoteException;
+    
+    public String sayHello() throws java.rmi.RemoteException;
 }

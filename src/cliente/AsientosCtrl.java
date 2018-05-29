@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,12 +23,15 @@ import javax.swing.JOptionPane;
 import model.Asiento;
 import model.NetworkManager;
 import model.patitoAPI;
+import model.patitoClientAPI;
 
 /**
  *
  * @author Victor Perera
  */
-public final class AsientosCtrl implements ActionListener {
+
+public final class AsientosCtrl extends UnicastRemoteObject implements ActionListener,patitoClientAPI
+{
 
     private final AsientosFrame view;
     NetworkManager net;
@@ -39,7 +43,7 @@ public final class AsientosCtrl implements ActionListener {
     private final String UPDATE = "ACTUALIZACION";
     private final int user;
     final String HOST = "localhost";
-
+    
     public AsientosCtrl(AsientosFrame view, patitoAPI rp, int user) throws IOException {
         this.view = view;
         this.rp = rp;
@@ -52,6 +56,8 @@ public final class AsientosCtrl implements ActionListener {
         crearPanelAsientos();
     }
 
+    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         ArrayList<Asiento> prepare = new ArrayList<>();
@@ -62,7 +68,7 @@ public final class AsientosCtrl implements ActionListener {
                     Asiento asientoComprado = new Asiento(name, COMPRADO, this.user);
                     prepare.add(asientoComprado);
                     buttons.get(i).setBackground(Color.GRAY);
-                    net.enviar(UPDATE);
+                    
                 }
             }
 
@@ -100,6 +106,11 @@ public final class AsientosCtrl implements ActionListener {
     }
 
     public void crearPanelAsientos() {
+        try {
+            System.out.println(rp.sayHello());
+        } catch (RemoteException ex) {
+            Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         int count = 1;
         char letra = 64;
 
@@ -202,6 +213,13 @@ public final class AsientosCtrl implements ActionListener {
             buttons.add(lab);
             this.view.panel.updateUI();
         }
+    }
+
+    @Override
+    public String notifyMe(String message) throws RemoteException {
+              String returnMessage = "Call back received: " + message; 
+              System.out.println(returnMessage); 
+            return returnMessage; 
     }
 
 }

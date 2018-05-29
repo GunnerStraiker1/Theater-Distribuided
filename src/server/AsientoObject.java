@@ -102,4 +102,9 @@ nextClient.notifyMe("Number of registered clients="+ clientList.size());
     } // for 
   } // function 
 
+    @Override
+    public String sayHello() throws RemoteException {
+        return ("Que hongo!");
+    }
+
 }

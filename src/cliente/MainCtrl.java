@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import model.patitoAPI;
+import model.patitoClientAPI;
 //
 ///**
 // *
@@ -48,8 +49,8 @@ public class MainCtrl implements ActionListener {
                         AsientosFrame viewSeat = new AsientosFrame();
                         this.viewLogin.dispose();
                         int idUser = users.get(0).getId();
-
-                        AsientosCtrl seatCtrl = new AsientosCtrl(viewSeat, rp, idUser);
+                        patitoClientAPI callbackObj = new AsientosCtrl(viewSeat, rp, idUser);
+                        rp.registerForCallback(callbackObj);
                     } else {
                         JOptionPane.showMessageDialog(viewLogin, "Usuario invalido", "Login Failed", JOptionPane.ERROR_MESSAGE);
                         this.viewLogin.txtName.setText("");

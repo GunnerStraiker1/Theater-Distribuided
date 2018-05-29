@@ -11,7 +11,8 @@ import java.rmi.Remote;
  *
  * @author Victor Perera
  */
-public interface patitoClientAPI extends Remote{
-       public void registerForCallback( patitoAPI callbackClientObject   ) throws java.rmi.RemoteException; 
-   public void unregisterForCallback( patitoAPI callbackClientObject   ) throws java.rmi.RemoteException;
+public interface patitoClientAPI extends Remote {
+
+    public String notifyMe(String message) throws java.rmi.RemoteException;
+
 }
