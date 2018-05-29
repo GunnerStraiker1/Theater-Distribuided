@@ -39,13 +39,9 @@ public final class AsientosCtrl extends Thread implements ActionListener {
     private final String UPDATE = "ACTUALIZACION";
     private final int user;
     final String HOST = "localhost";
-    final int PUERTO = 5000;
-    BufferedReader entrada = null;
-    PrintWriter salida = null;
+
 
     public AsientosCtrl(AsientosFrame view, patitoAPI rp, int user) throws IOException {
-        net = NetworkManager.getInstance();
-        net.setServer(HOST,PUERTO);
         this.view = view;
         this.rp = rp;
         this.view.setLocationRelativeTo(null);

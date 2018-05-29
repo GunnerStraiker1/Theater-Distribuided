@@ -20,10 +20,9 @@ import java.rmi.registry.Registry;
  */
 public class PatitoServer {
 
-    public static final int PUERTO = 5000;
     public static ServerSocket sc;
     public static Socket so;
-    public DataOutputStream salida;
+
     public String mensajeRecibido;
 
     public static void main(String[] args) throws IOException {
@@ -38,16 +37,6 @@ public class PatitoServer {
             //Register server object
             registry.rebind("Patito", po);
             System.out.println("PatitoServer is created!!!");
-            sc = new ServerSocket(PUERTO);/* crea socket servidor que escuchara en puerto 5000*/
-            so = new Socket();
-            System.out.println("Esperando una conexión:");
-
-            while (true) {
-
-                so = sc.accept();
-                System.out.println("Un cliente se ha conectado " + so.getInetAddress().getHostAddress());
-            }
-
 
         } catch (RemoteException e) {
             System.out.println(e);
