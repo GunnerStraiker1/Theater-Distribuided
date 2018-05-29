@@ -29,7 +29,7 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI {
     @Override
     public void comprarAsiento(Asiento seat) {
         try {
-            System.out.println("Invoke Comprar Asiento from " + getClientHost());
+           System.out.println("Invoke Comprar Asiento from " + getClientHost());
         } catch (ServerNotActiveException snae) {
         }
         PatitoRepo.comprar(seat);
@@ -64,11 +64,8 @@ public class AsientoObject extends UnicastRemoteObject implements patitoAPI {
 
     @Override
     public ArrayList<Asiento> asientos() {
-        try {
-            System.out.println("Invoke AllAsientosUser from " + getClientHost());
-        } catch (ServerNotActiveException snae) {
-        }
-        return PatitoRepo.findSeatsUser();
+//System.out.println("Invoke AllAsientosUser from " + getClientHost());
+                return PatitoRepo.findSeatsUser();
     }
 
 }

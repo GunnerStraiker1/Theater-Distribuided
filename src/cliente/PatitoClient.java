@@ -1,5 +1,6 @@
 package cliente;
 
+import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -11,6 +12,7 @@ import model.patitoAPI;
  *
  */
 public class PatitoClient {
+
 
     public static void main(String[] args) {
         try {

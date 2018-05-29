@@ -8,6 +8,10 @@ package cliente;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +20,32 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import model.Asiento;
+import model.NetworkManager;
 import model.patitoAPI;
 
 /**
  *
  * @author Victor Perera
  */
-public class AsientosCtrl implements ActionListener {
+public final class AsientosCtrl extends Thread implements ActionListener {
 
     private final AsientosFrame view;
+    NetworkManager net;
     private final patitoAPI rp;
     private int asientosSeleccionados;
     private final List<JButton> buttons = new ArrayList<>();
     private final String COMPRADO = "COMPRADO";
     private final String PENDIENTE = "EN ESPERA";
+    private final String UPDATE = "ACTUALIZACION";
     private final int user;
+    final String HOST = "localhost";
+    final int PUERTO = 5000;
+    BufferedReader entrada = null;
+    PrintWriter salida = null;
 
-    public AsientosCtrl(AsientosFrame view, patitoAPI rp, int user) {
+    public AsientosCtrl(AsientosFrame view, patitoAPI rp, int user) throws IOException {
+        net = NetworkManager.getInstance();
+        net.setServer(HOST,PUERTO);
         this.view = view;
         this.rp = rp;
         this.view.setLocationRelativeTo(null);
@@ -54,22 +67,30 @@ public class AsientosCtrl implements ActionListener {
                     Asiento asientoComprado = new Asiento(name, COMPRADO, this.user);
                     prepare.add(asientoComprado);
                     buttons.get(i).setBackground(Color.GRAY);
+                    net.enviar(UPDATE);
                 }
             }
-            for (int i = 0; i < prepare.size(); i++) {
-                try {
-                    rp.comprarAsiento(prepare.get(i));
-                } catch (RemoteException ex) {
-                    Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (!prepare.isEmpty()) {
+                for (int i = 0; i < prepare.size(); i++) {
+                    try {
+                        rp.comprarAsiento(prepare.get(i));
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
+                JOptionPane.showMessageDialog(view, "Ha comprado los boletos", "Exito", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(view, "No ha seleccionado boletos", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
-            JOptionPane.showMessageDialog(view, "Ha comprado los boletos", "Exito", JOptionPane.INFORMATION_MESSAGE);
+
         }
 
         if (e.getSource() == this.view.jBBack) {
             UserInterface wiew = new UserInterface();
             this.view.dispose();
             MainCtrl main = new MainCtrl(wiew, rp);
+
             for (int i = 0; i < buttons.size(); i++) {
                 String name = buttons.get(i).getName();
                 Asiento asientoCancelado = new Asiento(name, PENDIENTE, this.user);
@@ -78,12 +99,12 @@ public class AsientosCtrl implements ActionListener {
                 } catch (RemoteException ex) {
                     Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
         }
-
     }
 
-    private void crearPanelAsientos() {
+    public void crearPanelAsientos() {
         int count = 1;
         char letra = 64;
 
@@ -186,5 +207,11 @@ public class AsientosCtrl implements ActionListener {
             buttons.add(lab);
             this.view.panel.updateUI();
         }
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Prueba");
+        //crearPanelAsientos();
     }
 }

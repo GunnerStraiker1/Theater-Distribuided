@@ -7,8 +7,11 @@ package cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import model.patitoAPI;
@@ -54,6 +57,8 @@ public class MainCtrl implements ActionListener {
                     }
                 } catch (RemoteException | NullPointerException ex) {
                     JOptionPane.showMessageDialog(viewLogin, "No hay conexión con la base de datos", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainCtrl.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(viewLogin, "Datos incompletos para iniciar sesion", "Login Failed", JOptionPane.ERROR_MESSAGE);
