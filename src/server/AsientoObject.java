@@ -104,6 +104,10 @@ nextClient.notifyMe("Number of registered clients="+ clientList.size());
 
     @Override
     public String sayHello() throws RemoteException {
+        for (int i = 0; i < clientList.size(); i++) {
+            patitoClientAPI nextClient=  (patitoClientAPI) clientList.elementAt(i); 
+            nextClient.notifyMe("Actualizate prra"); 
+        }
         return ("Que hongo!");
     }
 

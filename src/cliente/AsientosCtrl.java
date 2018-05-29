@@ -208,6 +208,11 @@ public final class AsientosCtrl extends UnicastRemoteObject implements ActionLis
                     }
 
                 }
+                try {
+                    System.out.println(rp.sayHello());
+                } catch (RemoteException ex) {
+                    Logger.getLogger(AsientosCtrl.class.getName()).log(Level.SEVERE, null, ex);
+                }
             });
             buttons.add(lab);
             this.view.panel.updateUI();
@@ -218,6 +223,7 @@ public final class AsientosCtrl extends UnicastRemoteObject implements ActionLis
     public String notifyMe(String message) throws RemoteException {
               String returnMessage = "Call back received: " + message; 
               System.out.println(returnMessage); 
+              crearPanelAsientos();
             return returnMessage; 
     }
 
