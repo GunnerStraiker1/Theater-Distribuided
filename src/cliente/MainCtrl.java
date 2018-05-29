@@ -48,7 +48,7 @@ public class MainCtrl implements ActionListener {
 
                         AsientosCtrl seatCtrl = new AsientosCtrl(viewSeat, rp, idUser);
                     } else {
-                        JOptionPane.showMessageDialog(viewLogin, "Usuario o Contraseña invalidos", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(viewLogin, "Usuario invalido", "Login Failed", JOptionPane.ERROR_MESSAGE);
                         this.viewLogin.txtName.setText("");
                         this.viewLogin.pwdLog.setText("");
                     }
