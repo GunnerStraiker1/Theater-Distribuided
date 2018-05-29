@@ -50,5 +50,10 @@ public class Asiento implements Serializable{
         this.user = user;
     }
 
+    @Override
+    public String toString() {
+        return "Asiento{" + "nombre=" + nombre + ", estado=" + estado + ", user=" + user + '}';
+    }
+
     
 }

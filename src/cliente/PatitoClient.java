@@ -1,6 +1,8 @@
 package cliente;
 
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import model.patitoAPI;
@@ -22,7 +24,7 @@ public class PatitoClient {
       
       MainCtrl main = new MainCtrl(wiew, rp);
  
-    } catch (Exception e) {
+    } catch (NotBoundException | RemoteException e) {
       System.out.println(e);
     }
   }

@@ -53,6 +53,13 @@ public class Usuario implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", name=" + name + ", password=" + password + '}';
+    }
+    
+    
     
     
 }

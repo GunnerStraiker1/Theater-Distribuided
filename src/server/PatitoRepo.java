@@ -21,11 +21,12 @@ public class PatitoRepo {
     public static void comprar(Asiento seat){
         try {
             Connection con = DBManager.getInstance().getConnection();
-            String SQL = "INSERT INTO asientos (nombre,estado,user) values(?,?,?)";
+            ;
+            String SQL = "UPDATE asientos SET estado=? WHERE nombre=? AND user=?";
 
             try (PreparedStatement pstmt = con.prepareStatement(SQL)) {
-                pstmt.setString(1, seat.getNombre());
-                pstmt.setString(2, seat.getEstado());
+                pstmt.setString(1, seat.getEstado());
+                pstmt.setString(2, seat.getNombre());
                 pstmt.setInt(3, seat.getUser());
                 
                 pstmt.executeUpdate();
@@ -44,7 +45,6 @@ public class PatitoRepo {
                 pstmt.setString(1, seat.getNombre());
                 pstmt.setString(2, seat.getEstado());
                 pstmt.setInt(3, seat.getUser());
-                
                 pstmt.executeUpdate();
             }
         } catch (SQLException se) {
@@ -55,13 +55,11 @@ public class PatitoRepo {
     public static void deseleccionar(Asiento seat){
         try {
             Connection con = DBManager.getInstance().getConnection();
-            String SQL = "DELETE FROM asientos WHERE nombre=? AND estado=? AND user =?";
+            String SQL = "DELETE FROM asientos WHERE nombre=? AND user=?";
 
             try (PreparedStatement pstmt = con.prepareStatement(SQL)) {
                 pstmt.setString(1, seat.getNombre());
-                pstmt.setString(2, seat.getEstado());
-                pstmt.setInt(3, seat.getUser());
-                
+                pstmt.setInt(2, seat.getUser());
                 pstmt.executeUpdate();
             }
         } catch (SQLException se) {
@@ -69,7 +67,7 @@ public class PatitoRepo {
         }
     }
     
-    public static boolean login(Usuario user) {
+    public static ArrayList<Usuario> login(Usuario user) {
         ArrayList<Usuario> usrs = new ArrayList();
         try {
       String QRY = "SELECT * FROM users WHERE name = ? AND password=?";
@@ -77,8 +75,8 @@ public class PatitoRepo {
             try (PreparedStatement pstmt = con.prepareStatement(QRY)) {
                 pstmt.setString(1, user.getName());
                 pstmt.setString(2, user.getPassword());
-                ResultSet rs = pstmt.executeQuery();
                 
+                ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
                     Usuario client = new Usuario(rs.getInt("id"), rs.getString("name"),  rs.getString("password"));
                     usrs.add(client);
@@ -87,33 +85,29 @@ public class PatitoRepo {
       System.out.println(se);
     }
         if (usrs.isEmpty()) {
-            return false;
+            return usrs;
         }
         else{
-            return true;
+            return usrs;
         }
     }
     
-    public static ArrayList findSeatsUser(Usuario user){
-        ArrayList arr = new ArrayList();
+    public static ArrayList<Asiento> findSeatsUser(){
+        ArrayList<Asiento> arr = new ArrayList();
  
     try {
-      String QRY = "SELECT * FROM asientos WHERE id = ?";
+      String QRY = "SELECT * FROM asientos";
       Connection con = DBManager.getInstance().getConnection();
             try (PreparedStatement pstmt = con.prepareStatement(QRY)) {
-                pstmt.setInt(1, user.getId());
                 ResultSet rs = pstmt.executeQuery();
-                
                 while (rs.next()) {
-                    Asiento seat = new Asiento();
-                    seat.setNombre(rs.getString("nombre"));
-                    seat.setEstado(rs.getString("estado"));
-                    seat.setUser(rs.getInt("user"));
-                    arr.add(seat);
+                    Asiento asiento = new Asiento(rs.getString("nombre"), rs.getString("estado"), rs.getInt("user"));
+                    arr.add(asiento);
                 }     }
     } catch (SQLException se) {
       System.out.println(se);
     }
     return arr;
     }
+    
 }

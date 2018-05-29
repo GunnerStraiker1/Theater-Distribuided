@@ -18,58 +18,57 @@ import model.patitoAPI;
  *
  * @author Victor Perera
  */
-public class AsientoObject extends UnicastRemoteObject implements patitoAPI{
-    
+public class AsientoObject extends UnicastRemoteObject implements patitoAPI {
+
     private static final long serialVersionUID = 11L;
 
-    public AsientoObject() throws RemoteException{
+    public AsientoObject() throws RemoteException {
         super();
     }
-    
 
     @Override
-    public void comprarAsiento(Asiento seat)  {
+    public void comprarAsiento(Asiento seat) {
         try {
-      System.out.println("Invoke Comprar Asiento from " + getClientHost());
-    } catch (ServerNotActiveException snae) {
-    }
+            System.out.println("Invoke Comprar Asiento from " + getClientHost());
+        } catch (ServerNotActiveException snae) {
+        }
         PatitoRepo.comprar(seat);
     }
 
     @Override
-    public void seleccionarAsiento(Asiento seat){
+    public void seleccionarAsiento(Asiento seat) {
         try {
-      System.out.println("Invoke Select Asiento from " + getClientHost());
-    } catch (ServerNotActiveException snae) {
-    }
+            System.out.println("Invoke Select Asiento from " + getClientHost());
+        } catch (ServerNotActiveException snae) {
+        }
         PatitoRepo.seleccionar(seat);
     }
-    
-    @Override
-    public void deseleccionarAsiento(Asiento seat){
-        try {
-      System.out.println("Invoke Diselect Asiento from " + getClientHost());
-    } catch (ServerNotActiveException snae) {
-    }
-        PatitoRepo.deseleccionar(seat);
-    }    
 
     @Override
-    public boolean login(Usuario user) {
+    public void deseleccionarAsiento(Asiento seat) {
         try {
-      System.out.println("Invoke Login from " + getClientHost());
-    } catch (ServerNotActiveException snae) {
+            System.out.println("Invoke Diselect Asiento from " + getClientHost());
+        } catch (ServerNotActiveException snae) {
+        }
+        PatitoRepo.deseleccionar(seat);
     }
+
+    @Override
+    public ArrayList<Usuario> login(Usuario user) {
+        try {
+            System.out.println("Invoke Login from " + getClientHost());
+        } catch (ServerNotActiveException snae) {
+        }
         return PatitoRepo.login(user);
     }
 
     @Override
-    public ArrayList AllAsientosUser(Usuario user) {
+    public ArrayList<Asiento> asientos() {
         try {
-      System.out.println("Invoke AllAsientos from " + getClientHost());
-    } catch (ServerNotActiveException snae) {
+            System.out.println("Invoke AllAsientosUser from " + getClientHost());
+        } catch (ServerNotActiveException snae) {
+        }
+        return PatitoRepo.findSeatsUser();
     }
-        return PatitoRepo.findSeatsUser(user);
-    }
-    
+
 }

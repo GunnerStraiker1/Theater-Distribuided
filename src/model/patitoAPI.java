@@ -17,6 +17,6 @@ public interface patitoAPI extends Remote{
     public void comprarAsiento(Asiento seat) throws RemoteException;
     public void seleccionarAsiento(Asiento seat) throws RemoteException;
     public void deseleccionarAsiento(Asiento seat) throws RemoteException;
-    public boolean login(Usuario user) throws RemoteException;
-    public ArrayList AllAsientosUser(Usuario user) throws RemoteException;
+    public ArrayList<Usuario> login(Usuario user) throws RemoteException;
+    public ArrayList<Asiento> asientos() throws RemoteException;
 }

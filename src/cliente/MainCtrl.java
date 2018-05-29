@@ -8,6 +8,7 @@ package cliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.Usuario;
 import model.patitoAPI;
@@ -40,11 +41,14 @@ public class MainCtrl implements ActionListener{
             if (!name.isEmpty() && !pass.isEmpty()) {
                 try {
                     Usuario usr = new Usuario(name,pass);
-                    if (rp.login(usr)) {
+                    ArrayList<Usuario> users = rp.login(usr); 
+                    if (users.size()>0) {
                         JOptionPane.showMessageDialog(viewLogin, "Bienvenido Usuario","Login Successful",JOptionPane.INFORMATION_MESSAGE);
                         AsientosFrame viewSeat = new AsientosFrame();
                         this.viewLogin.dispose();
-                        AsientosCtrl seatCtrl = new AsientosCtrl(viewSeat, rp);
+                        int idUser = users.get(0).getId();
+                        
+                        AsientosCtrl seatCtrl = new AsientosCtrl(viewSeat, rp, idUser);
                     }
                     else{
                         JOptionPane.showMessageDialog(viewLogin, "Usuario o Contraseña invalidos", "Login Failed",JOptionPane.ERROR_MESSAGE);
