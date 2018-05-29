@@ -26,4 +26,8 @@ public interface patitoAPI extends Remote {
     public ArrayList<Asiento> asientos() throws RemoteException;
     
     public String notifyMe(String mensaje) throws  RemoteException;
+    
+    public void registerForCallback( patitoClientAPI callbackClientObject   ) throws java.rmi.RemoteException; 
+    
+    public void unregisterForCallback( patitoClientAPI callbackClientObject   ) throws java.rmi.RemoteException;
 }
